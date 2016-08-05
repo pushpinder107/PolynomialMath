@@ -2,7 +2,6 @@ import java.util.*;
 import java.lang.*;
 import java.io.*;
 
-
 class Polynomial
 {
     
@@ -10,13 +9,34 @@ class Polynomial
     
     // For empty Polynomial
     public Polynomial(){
-        polynomialMap = newHashMap<>();
+        polynomialMap = new HashMap<>();
     }
 
     public Polynomial(String input){
-        polynomialMap = newHashMap<>();
-        // Add convert Function
+        polynomialMap = new HashMap<>();
+        parseStringToPoly(input);
     }
+    
+    private Polynomial parseStringToPoly(String polyString){
+		String[] result, elementSet;
+		String element;
+		Integer coefficient, exponent;
+		
+		String pattern = "[+-][0-9]+[a-z]{1}[0-9]";
+		if(!(polyString.startsWith("-")))
+				polyString = '+'+polyString;
+			
+		Pattern p = Pattern.compile(pattern);
+		Matcher m = p.matcher(polyString);
+		while(m.find()){
+			element = m.group();
+			elementSet = element.split("x");
+			coefficient = Integer.parseInt(elementSet[0]);
+			exponent = Integer.parseInt(elementSet[1]);
+			this.polynomialMap.put(coefficient, exponent);
+		}
+		return this;
+	}
     
     public String toString(){
     
