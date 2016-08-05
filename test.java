@@ -21,8 +21,9 @@ class Polynomial
 		String[] result, elementSet;
 		String element;
 		Integer coefficient, exponent;
-		
 		String pattern = "[+-][0-9]+[a-z]{1}[0-9]";
+		polyString.toLowerCase();
+
 		if(!(polyString.startsWith("-")))
 				polyString = '+'+polyString;
 			
@@ -30,7 +31,7 @@ class Polynomial
 		Matcher m = p.matcher(polyString);
 		while(m.find()){
 			element = m.group();
-			elementSet = element.split("x");
+			elementSet = element.split("[a-z]");
 			coefficient = Integer.parseInt(elementSet[0]);
 			exponent = Integer.parseInt(elementSet[1]);
 			this.polynomialMap.put(coefficient, exponent);
